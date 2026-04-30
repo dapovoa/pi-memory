@@ -452,6 +452,14 @@ export class TapeService {
     return getSessionFilePaths(this.cwd).length;
   }
 
+  /** Release references to session manager and clear caches. */
+  dispose(): void {
+    this.clearAnchorTreeLabels();
+    this.sessionManager = null;
+    this.labelWriter = null;
+    this.entryCache.clear();
+  }
+
   clear(): void {
     this.clearAnchorTreeLabels();
     this.anchorStore.clear();

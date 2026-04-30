@@ -344,6 +344,19 @@ function registerLifecycleHandlers(pi: ExtensionAPI, settings: MemoryMdSettings,
   });
 
   pi.on("session_shutdown", async (_event, ctx) => {
+    // 1. Limpar tape runtime — liberta referências ao sessionManager e caches
+    if (state.activeTapeRuntime) {
+      state.activeTapeRuntime.service.dispose();
+      state.activeTapeRuntime = null;
+      state.tapeGate = null;
+    }
+
+    // 2. Limpar caches de contexto
+    state.initialMemoryContext = null;
+    state.initialTapeContext = null;
+    state.pendingHandoffMatch = null;
+
+    // 3. Correr hooks de sessionEnd (push, etc.)
     if (getHookActions(settings, "sessionEnd").length === 0 || !settings.localPath) {
       return;
     }

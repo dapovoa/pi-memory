@@ -46,7 +46,9 @@ function buildToolCallText(name: string, args: Record<string, unknown>, theme: T
   const text = theme.fg("toolTitle", theme.bold(name));
   const entries = Object.entries(args).filter(([, v]) => v !== undefined);
   if (entries.length === 0) return text;
-  const [_key, value] = entries[0];
+  const entry = entries[0];
+  if (!entry) return text;
+  const [_key, value] = entry;
   return `${text} ${theme.fg("accent", formatValue(value))}`;
 }
 
@@ -145,6 +147,7 @@ export function registerMemorySync(pi: ExtensionAPI, settings: MemoryMdSettings)
   pi.registerTool({
     name: "memory_sync",
     label: "Memory Sync",
+    renderShell: "self",
     description: "Synchronize memory repository with git (pull/push/status)",
     parameters: Type.Object({
       action: Type.Union([Type.Literal("pull"), Type.Literal("push"), Type.Literal("status")], {
@@ -210,6 +213,7 @@ export function registerMemoryWrite(pi: ExtensionAPI, settings: MemoryMdSettings
   pi.registerTool({
     name: "memory_write",
     label: "Memory Write",
+    renderShell: "self",
     description: "Create or update a project memory file with YAML frontmatter",
     parameters: Type.Object({
       path: Type.String({ description: "Project memory relative path (e.g., 'core/project/architecture.md')" }),
@@ -267,6 +271,7 @@ export function registerMemoryList(pi: ExtensionAPI, settings: MemoryMdSettings)
   pi.registerTool({
     name: "memory_list",
     label: "Memory List",
+    renderShell: "self",
     description: "List memory files: project paths are relative, global paths are absolute",
     parameters: Type.Object({
       directory: Type.Optional(Type.String({ description: "Project subdirectory (e.g., 'core/project')" })),
@@ -339,6 +344,7 @@ export function registerMemorySearch(pi: ExtensionAPI, settings: MemoryMdSetting
   pi.registerTool({
     name: "memory_search",
     label: "Memory Search",
+    renderShell: "self",
     description: "Search memory files by tags, description, or custom grep/rg pattern",
     parameters: Type.Object({
       query: Type.Optional(Type.String({ description: "Search query for tags and description" })),
@@ -494,6 +500,7 @@ export function registerMemoryCheck(pi: ExtensionAPI, settings: MemoryMdSettings
   pi.registerTool({
     name: "memory_check",
     label: "Memory Check",
+    renderShell: "self",
     description: "Check current project memory folder structure",
     parameters: Type.Object({}),
 

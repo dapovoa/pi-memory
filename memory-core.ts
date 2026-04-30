@@ -211,10 +211,8 @@ export function getMemoryDir(settings: MemoryMdSettings, cwd: string): string {
 }
 
 export function getGlobalMemoryDir(settings: MemoryMdSettings): string | null {
-  if (!Object.hasOwn(settings.memoryDir ?? {}, "globalMemory")) return null;
-
   const globalMemory = settings.memoryDir?.globalMemory;
-  if (globalMemory === undefined || globalMemory === null || globalMemory === "") return null;
+  if (typeof globalMemory !== "string" || globalMemory.trim().length === 0) return null;
 
   const directoryName = globalMemory.trim();
   const safeDirectoryName =

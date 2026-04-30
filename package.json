@@ -21,11 +21,12 @@
     "coding-agent"
   ],
   "dependencies": {
+    "@sinclair/typebox": "^0.34.49",
     "gray-matter": "^4.0.3"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.12",
-    "@mariozechner/pi-coding-agent": "^0.67.1",
+    "@mariozechner/pi-coding-agent": "^0.70.5",
     "@types/node": "^20.0.0",
     "typescript": "^5.0.0"
   },
