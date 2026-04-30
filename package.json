@@ -1,0 +1,59 @@
+{
+  "name": "pi-memory",
+  "version": "0.1.35",
+  "description": "Memory management for pi using structured markdown files in a git repository",
+  "type": "module",
+  "license": "MIT",
+  "author": "Vitor Fernandes",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dapovoa/pi-memory.git"
+  },
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "pi-skill",
+    "memory",
+    "markdown",
+    "git",
+    "persistent-memory",
+    "ai-memory",
+    "coding-agent"
+  ],
+  "dependencies": {
+    "gray-matter": "^4.0.3"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.12",
+    "@mariozechner/pi-coding-agent": "^0.67.1",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ],
+    "skills": [
+      "./skills/memory-init/SKILL.md",
+      "./skills/memory-management/SKILL.md",
+      "./skills/memory-sync/SKILL.md",
+      "./skills/memory-search/SKILL.md"
+    ]
+  },
+  "files": [
+    "hooks.ts",
+    "index.ts",
+    "memory-git.ts",
+    "memory-core.ts",
+    "tools.ts",
+    "types.ts",
+    "utils.ts",
+    "tape",
+    "skills",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "check": "biome check --write --error-on-warnings . && tsgo --noEmit"
+  }
+}
